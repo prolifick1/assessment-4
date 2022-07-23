@@ -5,14 +5,12 @@ function saveCategory() {
   });
 }
 
-
 function editCategory() {
   let updatedCategoryName=document.getElementById('editCategoryField').value;
   axios.put('', { name: updatedCategoryName }).then((response) => {
     window.location.href = '../../../'
   });
 }
-
 
 function deleteCategory() {
   axios.delete('').then((response)=> {
@@ -26,9 +24,26 @@ function savePost() {
 
   let data = { title: postTitle, content: postContent }
 
-  console.log('dataaaaaaaaaaaaaaaaaaa', data)
   axios.post('', data )
   .then((response) => {
-    console.log('clicked')
+    window.location.href='../view'
   })
 }
+
+function editPost() {
+  let updatedPostTitle=document.getElementById('editPostTitleField').value;
+  let updatedPostContent=document.getElementById('editPostContentField').value;
+  let data = { title: updatedPostTitle, content: updatedPostContent }
+  axios.post('', data)
+  .then((response) => {
+    window.location.href='./view'
+  })
+
+}
+
+function deletePost() {
+  axios.delete('').then((rewponse) => {
+    window.location.href='../../view'
+  });
+}
+

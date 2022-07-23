@@ -12,4 +12,4 @@ class Post(models.Model):
     category=models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
-        return(f'{self.title} {self.content}')
+        return(f'title: {self.title} content: {self.content}')

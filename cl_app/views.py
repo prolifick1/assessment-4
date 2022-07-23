@@ -29,10 +29,10 @@ def edit_category(request, category_id):
     if(request.method == 'PUT'):
         body = json.loads(request.body)
         Category.objects.filter(id=category_id).update(name=body['name'])
-        JsonResponse({})
+        return JsonResponse({})
     if(request.method == 'DELETE'):
         Category.objects.filter(id=category_id).delete()
-        JsonResponse({})
+        return JsonResponse({})
     return render(request, 'cl_app/edit_category.html', data)
 
 
@@ -48,6 +48,20 @@ def add_post(request, category_id):
 
 def view_post(request, category_id, post_id):
     post = Post.objects.get(id=post_id)
-    print('poooooooooooooooosttttttttttttttttttttttttttt', post)
-    data = { title: post.title, content: post.content }
+    data = { "post_title": post.title, "post_content": post.content }
     return render(request, 'cl_app/view_post.html', data)
+
+@csrf_exempt
+def edit_post(request, category_id, post_id):
+    post_title = Post.objects.filter(id=post_id).get().title
+    post_content = Post.objects.filter(id=post_id).get().content
+    data = { "post_title": post_title, "post_content": post_content }
+    if(request.method == 'GET'):
+        return render(request, 'cl_app/edit_post.html', data)
+    if(request.method == 'POST'):
+        body = json.loads(request.body)
+        updatedPost = Post.objects.filter(id=post_id).update(title=body['title'], content=body['content'])
+        return JsonResponse({});
+    if(request.method == 'DELETE'):
+        Post.objects.filter(id=post_id).delete()
+        return JsonResponse({})

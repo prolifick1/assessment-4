@@ -1,0 +1,11 @@
+{% extends 'cl_app/base.html' %}
+
+{%block content%}
+<h1>Edit Post</h1>
+<label>Title:</label>
+<input value='{{ post_title }}' id="editPostTitleField"></input>
+<label>Content:</label>
+<textarea value='' id="editPostContentField">{{ post_content }}</textarea>
+<button onClick="{editPost();}">Edit</button>
+<button onClick="{deletePost();}">Delete</button>
+{% endblock %}

@@ -1,8 +1,9 @@
 {% extends 'cl_app/base.html' %}
 
 {% block content %}
-  <h1> {{ title }} </h1>
-  <p> {{ content }} </p>
-  <a href="categories/3/view/" > Go Back </a>
+  <h1> {{ post_title }} </h1>
+  <p> {{ post_content }} </p>
+  <a href="./edit">Edit</a>
+  <a href="../../view" > Go Back </a>
 {% endblock %}
 
