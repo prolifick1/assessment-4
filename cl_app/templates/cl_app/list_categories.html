@@ -1,0 +1,15 @@
+{% extends 'cl_app/base.html' %}
+{% block content %}
+  {% if categories %}
+    {% for category in categories %}
+    <div>
+      <li>
+        <a href="{% url 'view_category' category.id %}" > {{ category.name }} </a> | <a href="{% url 'edit_category' category.id %}">Edit</a>
+      </li>
+    </div>
+    {% endfor %}
+  {% else %}
+    <h1>hello</h1>
+  {% endif %}
+  <a href="{% url 'add_category' %}" >Add Category</a>
+{% endblock %}

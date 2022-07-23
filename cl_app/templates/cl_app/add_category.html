@@ -1,0 +1,9 @@
+{% extends 'cl_app/base.html' %}
+
+{%block content%}
+<h1>Add New Category</h1>
+<label>Title:</label>
+<input id="newCategoryName"></input>
+<!-- References js, note the extension at the top of the file -->
+<button onClick = "{saveCategory();}">Submit!</button>
+{% endblock %}

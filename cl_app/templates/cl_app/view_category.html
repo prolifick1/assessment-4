@@ -1,0 +1,16 @@
+{% extends 'cl_app/base.html' %}
+
+{% block content %}
+  {% if posts %}
+    {% for post in posts %}
+    post category id: {{post.category.id}}
+    post id: {{ post.id }}
+      <li>
+        <a href="{% url 'view_post' post.category.id post.id %}">{{post.title}}</a>
+      </li>
+    {% endfor %}
+  {% else %}
+    <h1>Nothing Found</h1>
+  {% endif %} 
+  <a href="./posts/new" > Create Post </a>
+{% endblock %}

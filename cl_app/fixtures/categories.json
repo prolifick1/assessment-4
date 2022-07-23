@@ -1,0 +1,23 @@
+[
+  {
+    "model": "cl_app.category",
+    "pk": 1,
+    "fields": {
+      "name": "Community"
+    }
+  },
+  {
+    "model": "cl_app.category",
+    "pk": 2,
+    "fields": {
+      "name": "Housing"
+    }
+  },
+  {
+    "model": "cl_app.category",
+    "pk": 3,
+    "fields": {
+      "name": "Jobs"
+    }
+  }
+]

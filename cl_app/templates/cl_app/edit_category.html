@@ -1,0 +1,9 @@
+{% extends 'cl_app/base.html' %}
+
+{%block content%}
+<h1>Edit Category</h1>
+<label>Title:</label>
+<input value='{{ category_name }}' id="editCategoryField"></input>
+<button onClick="{editCategory();}">Edit</button>
+<button onClick="{deleteCategory();}">Delete</button>
+{% endblock %}

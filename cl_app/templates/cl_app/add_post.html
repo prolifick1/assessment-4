@@ -1,0 +1,10 @@
+{% extends 'cl_app/base.html' %}
+
+{%block content%}
+<h1>Add New Post</h1>
+<label>Title:</label>
+<input id="post-title"></input>
+<label>Content:</label>
+<textarea id="post-content"></textarea>
+<button onClick = "{savePost();}">Submit!</button>
+{% endblock %}
