@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import Category, Post
 from django.views.decorators.csrf import csrf_exempt
+from django.core import serializers
 import json
 
 def list_categories(request):
@@ -65,3 +66,51 @@ def edit_post(request, category_id, post_id):
     if(request.method == 'DELETE'):
         Post.objects.filter(id=post_id).delete()
         return JsonResponse({})
+
+@csrf_exempt
+def categories(request):
+    if(request.method == 'POST'):
+        body = json.loads(request.body)
+        new_category = Category(name=body['name'])
+        new_category.save()
+    categories = Category.objects.all().values()
+    return JsonResponse(list(categories), safe=False)
+
+@csrf_exempt
+def category(request, category_id):
+    if(request.method == 'DELETE'):
+        deleted = Category.objects.filter(id=category_id)
+        Category.objects.filter(id=category_id).delete()
+        return JsonResponse(list(deleted.values()), safe=False)
+    if(request.method == 'PUT'):
+        body=json.loads(request.body)
+        Category.objects.filter(id=category_id).update(name=body['name'])
+        updated_category = Category.objects.filter(id=category_id).values()
+        data = list(updated_category.values())
+        return JsonResponse(data, safe=False)
+    category = Category.objects.filter(id=category_id).values()
+    return JsonResponse(list(category), safe=False)
+
+@csrf_exempt
+def posts(request, category_id=None):
+    if(request.method == 'POST'):
+        body = json.loads(request.body)
+        new_post = Post(title=body['title'], content=body['content'])
+        new_post.save()
+    if(category_id):
+        selected_posts = Post.objects.filter(id=category_id)
+        return JsonResponse(list(selected_posts), safe=False)
+    all_posts = Post.objects.all().values()
+    return JsonResponse(list(all_posts), safe=False)
+
+@csrf_exempt
+def post(request, post_id):
+    if(request.method == 'DELETE'):
+        Post.objects.filter(id=post_id).delete()
+        data = serializers.serialize('json', Post.objects.all())
+        return HttpResponse(data, content_type='application/json')
+    if(request.method == 'PUT'):
+        body = json.loads(request.body)   
+        selected_post = Post.objects.filter(id=post_id).update(title=body['title'], content=body['content'])
+    data = serializers.serialize('json', Post.objects.filter(id=post_id))
+    return HttpResponse(data, content_type='application/json')
